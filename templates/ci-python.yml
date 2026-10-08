@@ -1,0 +1,20 @@
+# NOTE: .github/workflows/ files cannot be pushed via the GitHub API.
+# Copy this file's contents into a new workflow via the GitHub web UI:
+# repo → Actions → New workflow → set up a workflow yourself.
+name: CI (Python)
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: pip install -r requirements.txt
+      - run: pytest -q
