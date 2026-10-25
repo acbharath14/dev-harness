@@ -1,0 +1,9 @@
+# OS / editor leftovers
+.DS_Store
+.idea/
+.vscode/
+*.swp
+*~
+# Local run outputs and scratch
+*.log
+*.tmp
