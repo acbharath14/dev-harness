@@ -3,7 +3,7 @@
 # repo → Actions → New workflow → set up a workflow yourself.
 name: CI (Node)
 
-on:
+"on":
   push:
     branches: [main]
   pull_request:
