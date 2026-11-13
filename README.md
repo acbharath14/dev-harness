@@ -2,13 +2,13 @@
 
 The outer harness for building software with AI agents across many projects without babysitting every step.
 
-**Problem:** N projects, every task re-decided from scratch — README structure, CI setup, PR checklists, "is this done?" — leading to decision fatigue.
+**Problem:** N projects, every task re-decided from scratch: README structure, CI setup, PR checklists, "is this done?", leading to decision fatigue.
 
 **Solution:** Convert repeated decisions into one-time designs.
-- `templates/` — new projects start from a skeleton, not a blank page.
-- `conventions/` — durable-memory formats (`STATUS.md`) so state lives in files, not heads.
-- `runbooks/` — paste-ready prompts for recurring tasks. Done twice → write it down. Third time → paste, don't re-explain.
-- `scripts/` — the Ralph loop and repo health checks.
+- `templates/`: new projects start from a skeleton, not a blank page.
+- `conventions/`: durable-memory formats (`STATUS.md`) so state lives in files, not heads.
+- `runbooks/`: paste-ready prompts for recurring tasks. Done twice: write it down. Third time: paste, don't re-explain.
+- `scripts/`: the Ralph loop and repo health checks.
 
 **Principles:** enforce, don't instruct · replace trust with evidence · files are the memory · boring over clever.
 
@@ -20,7 +20,7 @@ The outer harness for building software with AI agents across many projects with
 
 ## How to use the runbooks
 
-Each file in `runbooks/` is a **complete prompt designed to be pasted into an AI assistant** (Claude, ChatGPT, Copilot, etc.). They are not documentation to read — they are instructions to execute.
+Each file in `runbooks/` is a **complete prompt designed to be pasted into an AI assistant** (Claude, ChatGPT, Copilot, etc.). They are not documentation to read. They are instructions to execute.
 
 **To use one:**
 
@@ -29,7 +29,7 @@ Each file in `runbooks/` is a **complete prompt designed to be pasted into an AI
 3. Paste the entire file into your AI assistant as the task prompt.
 4. The assistant follows the PROCESS steps and returns the VERIFY items.
 
-**Example** — fixing a broken CI run:
+**Example:** fixing a broken CI run:
 
 ```
 # Copy runbooks/ci-fix.md, fill in:
@@ -53,15 +53,15 @@ RUN URL: https://github.com/my-org/my-app/actions/runs/12345
 | `dependency-bump.md` | Updating dependencies safely |
 | `pr-review-prep.md` | Preparing a PR for review |
 
-**Writing your own:** when you do something twice, write it down using the same format — TASK, placeholders, CONSTRAINTS, PROCESS (numbered steps), VERIFY (what to paste back). The third time, you paste instead of re-explaining.
+**Writing your own:** when you do something twice, write it down using the same format: TASK, placeholders, CONSTRAINTS, PROCESS (numbered steps), VERIFY (what to paste back). The third time, you paste instead of re-explaining.
 
 ## Scripts
 
-### `scripts/ralph.sh` — autonomous agent loop
+### `scripts/ralph.sh`: autonomous agent loop
 
 Runs an AI agent repeatedly with the same prompt until it reports completion. Each iteration starts with fresh context; the files are the memory.
 
-**When to use:** long multi-step tasks where you want the agent to keep going without babysitting — e.g. "migrate all tests to the new framework" or "fix every lint error."
+**When to use:** long multi-step tasks where you want the agent to keep going without babysitting: e.g. "migrate all tests to the new framework" or "fix every lint error."
 
 **Usage:**
 
@@ -72,7 +72,7 @@ Runs an AI agent repeatedly with the same prompt until it reports completion. Ea
 | Flag | Default | Meaning |
 |---|---|---|
 | `PROMPT.md` | (required) | File containing the task prompt, repeated each iteration |
-| `--done` | `"ALL TASKS DONE"` | Completion promise — loop exits when agent output contains this string |
+| `--done` | `"ALL TASKS DONE"` | Completion promise: loop exits when agent output contains this string |
 | `--max` | `20` | Maximum iterations before giving up |
 | `--agent` | `"claude -p"` | Agent command (must accept the prompt as an argument) |
 
@@ -85,7 +85,7 @@ Runs an AI agent repeatedly with the same prompt until it reports completion. Ea
 
 **Writing a good PROMPT.md:** the prompt must instruct the agent to (a) check what's already done by reading the repo state, (b) do the next unit of work, and (c) print the exact `--done` string only when everything is complete. Without (a), iterations redo work. Without (c), the loop never exits.
 
-### `scripts/repo-health.sh` — portfolio exception report
+### `scripts/repo-health.sh`: portfolio exception report
 
 One-page status across all your repos: open PRs and recent CI results on `main`. Surfaces only what needs a human.
 
